@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-sm-12">
 
-                <!-- include('flash::message') -->
+                @include('flash::message')
                          
                 @if (count($errors) > 0)
                     <div class="alert alert-danger">
@@ -22,7 +22,8 @@
 
                 <div class="col-sm-8 col-sm-offset-2">
 
-                    <form class="form-horizontal" role="form" method="PUT" action="{{ route('configuraciones.update', $configuracion->id) }}">
+                    {!! Form::open(['route' =>  ['configuraciones.update', $configuracion->id], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
+
                         {!! csrf_field() !!}
                         <fieldset>
                             <legend>
@@ -31,7 +32,8 @@
                         
                             <div class="form-group {{ $errors->has('empresa') ? ' has-error' : '' }}">
                                 <span class="input-icon">
-                                    <input type="text" class="form-control" name="empresa" value="{{ $configuracion->empresa }}">
+                                    
+                                    {!! Form::text('empresa', $configuracion->empresa, ['class' => 'form-control', 'placeholder' => 'Nombre de la empresa' ,'required']) !!}
                                     
                                     <i class="fa fa-building"></i></span>
 
@@ -45,20 +47,20 @@
                             <div class="form-group form-actions {{ $errors->has('direccion') ? ' has-error' : '' }}">
                                 
                                     <label>Dirección</label>
-                                    <textarea name="direccion" class="form-control" cols="30" rows="6">{{ $configuracion->direccion }}</textarea>
-
                                     
+                                    {!! Form::textarea('direccion', $configuracion->direccion, ['class' => 'form-control', 'placeholder' => 'Dirección de la empresa' ,'required',  'rows' => '6']) !!}
 
-                                     @if ($errors->has('email'))
+                                    @if ($errors->has('direccion'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('email') }}</strong>
+                                            <strong>{{ $errors->first('direccion') }}</strong>
                                         </span>
                                     @endif
                             </div>
 
                             <div class="form-group {{ $errors->has('rif') ? ' has-error' : '' }}">
                                 <span class="input-icon">
-                                    <input type="text" class="form-control" name="rif" value="{{ $configuracion->rif }}" placeholder="RIF">
+                                    
+                                    {!! Form::text('rif', $configuracion->rif, ['class' => 'form-control', 'placeholder' => 'RIF' ,'required']) !!}
                                     
                                     <i class="fa fa-list"></i></span>
 
@@ -71,7 +73,8 @@
 
                             <div class="form-group {{ $errors->has('moneda') ? ' has-error' : '' }}">
                                 <span class="input-icon">
-                                    <input type="text" class="form-control" name="moneda" value="{{ $configuracion->moneda }}" placeholder="Moneda">
+                                    
+                                    {!! Form::text('moneda', $configuracion->moneda, ['class' => 'form-control', 'placeholder' => 'Moneda' ,'required']) !!}
                                     
                                     <i class="fa fa-money"></i></span>
 
@@ -89,7 +92,7 @@
                             </div>
                             
                         </fieldset>
-                    </form>
+                    {!! Form::close() !!}
 
                 </div>
 

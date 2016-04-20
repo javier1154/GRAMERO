@@ -52,6 +52,136 @@ class DatabaseSeeder extends Seeder
             'updated_at' => new DateTime
         ]);
 
+        DB::table('configuraciones')->insert([
+            'empresa' => 'GRAMERO C.A.',
+            'direccion' => 'Maturín - Edo. Monagas.',
+            'rif' => 'J-020392827-4',
+            'moneda' => 'Bs.',
+
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
+        DB::table('categorias')->insert([
+            'nombre' => 'Carnes',
+            'tipo' => 'Items',
+
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
+        DB::table('categorias')->insert([
+            'nombre' => 'Carbohidratos',
+            'tipo' => 'Items',
+
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
+        DB::table('categorias')->insert([
+            'nombre' => 'Postre',
+            'tipo' => 'Productos',
+
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
+        DB::table('categorias')->insert([
+            'nombre' => 'Bebida',
+            'tipo' => 'Productos',
+
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
+
+        DB::table('unidades_compras')->insert([
+
+            'nombre' => 'Kilogramos',
+            'nomenclatura' => 'Kg.',
+
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
+        DB::table('unidades_compras')->insert([
+
+            'nombre' => 'Unidades',
+            'nomenclatura' => 'U.',
+
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
+        DB::table('unidades_ventas')->insert([
+
+            'id_unidad_compra' => '1',
+            'nombre' => 'Gramos',
+            'nomenclatura' => 'gr.',
+            'equivalencia' => '1000',
+
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
+        DB::table('unidades_ventas')->insert([
+
+            'id_unidad_compra' => '2',
+            'nombre' => 'Unidad',
+            'nomenclatura' => 'u.',
+            
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
+        DB::table('items')->insert([
+
+            'nombre' => 'Pollo',
+            'id_categoria' => '1',
+            'id_unidad_compra' => '1',
+            'alertar' => '10',
+            
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
+        DB::table('items')->insert([
+
+            'nombre' => 'Panes',
+            'id_categoria' => '2',
+            'id_unidad_compra' => '2',
+            'alertar' => '50',
+            
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
+        DB::table('proveedores')->insert([
+
+            'rif' => 'V-20376542-2',
+            'nombre' => 'Proveedor Velásquez',
+            'direccion' => 'La ceiba 1 de san martín',
+            'telefono' => '04262804755',
+            'email' => 'proveedorvelasquez@gmail.com',
+            'id_usuario' => '1',
+            
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
+        DB::table('proveedores')->insert([
+
+            'rif' => 'V-20375885-2',
+            'nombre' => 'Proveedor Diaz',
+            'direccion' => 'Calle quebrada honda',
+            'telefono' => '04128418606',
+            'email' => 'proveedordiaz@gmail.com',
+            'id_usuario' => '1',
+            
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
 
     }
 }

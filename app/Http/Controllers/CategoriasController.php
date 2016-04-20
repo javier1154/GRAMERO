@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\Iva;
-
 use Laracasts\Flash\Flash;
 
-class IvasController extends Controller
+use App\Categoria;
+
+class CategoriasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,13 @@ class IvasController extends Controller
      */
     public function index()
     {
-        //
+
+        $cat_items = Categoria::where('tipo', '=', 'Items')->get();
+        $cat_productos = Categoria::where('tipo', '=', 'Productos')->get();
+
+        return view('categorias.index')
+                ->with('cat_items', $cat_items)
+                ->with('cat_productos', $cat_productos);
     }
 
     /**
@@ -29,7 +35,7 @@ class IvasController extends Controller
      */
     public function create()
     {
-        return view('ivas.registrar');
+        return view('categorias.registrar');
     }
 
     /**
@@ -40,30 +46,19 @@ class IvasController extends Controller
      */
     public function store(Request $request)
     {
+        $existe = Categoria::where('nombre', '=', $request->nombre)->where('tipo', '=', $request->tipo)->first();
 
-        $iva = Iva::orderBy('id', 'DESC')->first();
+        if( count($existe) == 0 ){
+            $categoria = new Categoria($request->all());
+            $categoria->save();
 
-        if(count($iva) == 1){
+            Flash::success("Se ha registrado la categoría ". $request->nombre." de forma exitosa.");
 
-            $iva->hasta = date("Y-m-d", strtotime("$request->desde -1 day"));
-
-            $iva->save();
-
-            $iva_nuevo = new Iva($request->all());
-            $iva_nuevo->save();
-
-            Flash::success("Se ha registrado el nuevo IVA de ".$iva_nuevo->iva."% de forma exitosa.");
-
+            return redirect()->route('categorias.index');
         }else{
-
-            $iva_nuevo = new Iva($request->all());
-            $iva_nuevo->save();
-
-            Flash::success("Se ha registrado el nuevo IVA de ".$iva_nuevo->iva."% de forma exitosa.");
-
+            Flash::error("La categoría ".$request->nombre." ya existe.");
+            return back()->withInput();
         }
-
-        return redirect()->route('configuraciones.index');
     }
 
     /**
@@ -108,6 +103,13 @@ class IvasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //VALIDAR QUE NO ESTE INCLUIDA EN NINGUNA OTRA TABLA CON LA CUAL SE RELACIONES
+        $categoria = Categoria::find($id);
+
+        $categoria->delete();
+
+        Flash::success("Se ha eliminado la categoría ". $categoria->nombre." de forma exitosa.");
+
+        return redirect()->route('categorias.index');
     }
 }

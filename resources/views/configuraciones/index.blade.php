@@ -50,10 +50,17 @@
                 @if (count($ivas) > 0)
                      <div class="panel panel-primary"  style="border: 1px solid #007AFF;">
                         <div class="panel-heading">
-                        <h4 class="panel-title text-bold">IVA: 12 %</h4>
+                        <h4 class="panel-title text-bold">IVA: {{$iva_actual->iva}} %</h4>
+                        @if (count($ivas) > 0)
+                             <div class="panel-tools">
+                                <a href="{{ route('ivas.create') }}" onclick="return confirm('¿Desea registrar un nuevo IVA?')">
+                                    <i class="fa fa-plus fa-lg"></i>
+                                </a>
+                            </div>
+                        @endif
                         </div>
                         <div class="panel-body bg-white text-dark">
-                            <table class="table table-bordered table-hover table-full-width table-responsive">
+                            <table class="table table-bordered table-hover table-full-width table-responsive" style="margin: 0px;">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -66,7 +73,7 @@
                                     @foreach ($ivas as $iva)
                                     <tr>
                                         <td>{{$iva->id}}</td>
-                                        <td>{{$iva->iva}}</td>
+                                        <td>{{$iva->iva}} %</td>
                                         <td>{{$iva->desde}}</td>
                                         <td>{{$iva->hasta or "----------"}}</td>
                                     </tr>

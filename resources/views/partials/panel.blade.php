@@ -26,7 +26,7 @@
 				</li>
 				
 				<li>
-					<a href="#!">
+					<a href="#">
 						<div class="item-content">
 							<div class="item-media">
 								<i class="ti-location-pin"></i>
@@ -37,6 +37,20 @@
 						</div>
 					</a>
 				</li>
+
+				<li>
+					<a href="{!! route('items.index') !!}">
+						<div class="item-content">
+							<div class="item-media">
+								<i class="ti-location-pin"></i>
+							</div>
+							<div class="item-inner">
+								<span class="title"> Items </span>
+							</div>
+						</div>
+					</a>
+				</li>
+
 				<li>
 					<a href="#!">
 						<div class="item-content">
@@ -62,7 +76,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="#!">
+					<a href="{!! route('proveedores.index') !!}">
 						<div class="item-content">
 							<div class="item-media">
 								<i class="ti-location-pin"></i>

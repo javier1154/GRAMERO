@@ -8,6 +8,8 @@ use App\Http\Requests;
 
 use App\User;
 
+use Laracasts\Flash\Flash;
+
 class UsersController extends Controller
 {
     /**
@@ -47,12 +49,12 @@ class UsersController extends Controller
             $usuario = new User($request->all());
             $usuario->save();
 
-            //Flash::success("Se ha registrado el usuario ". $request->name." de forma exitosa.");
+            Flash::success("Se ha registrado el usuario ". $request->name." de forma exitosa.");
 
             return redirect()->route('usuarios.index');
 
         }else{
-            //Flash::error("El correo electrónico ".$request->email." ya esta en uso.");
+            Flash::error("El correo electrónico ".$request->email." ya esta en uso.");
 
             return back()->withInput();
         }
@@ -92,14 +94,36 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
 
-        //VERIFICAR SI LA CLAVE FUE CAMBIADA.
-
         $usuario = User::find($id);
-        $usuario->fill($request->all());
+        $usuario->name = $request->name;
+        $usuario->email = $request->email;
+        $usuario->tipo = $request->tipo;
 
-        $usuario->save();
+        //$usuario->fill($request->all());
 
-        //Flash::success("Se ha editado el usuario ". $request->name." de forma exitosa.");
+        if( ( strlen($request->password) > 0 ) and  ( strlen($request->password_confirmation) > 0 )  ){
+
+            if($request->password == $request->password_confirmation){
+
+                $usuario->password = bcrypt($request->password);
+
+                $usuario->save();
+
+                Flash::success("Se ha editado el usuario ". $request->name." de forma exitosa.");
+
+            }else{
+
+                Flash::error("Las contraseñas que introdujo no coinciden.");
+
+                return back()->withInput();
+            }
+
+        }else{
+
+            $usuario->save();
+
+            Flash::success("Se ha editado el usuario ". $request->name." de forma exitosa.");
+        }        
 
         return redirect()->route('usuarios.index');
 
@@ -132,14 +156,14 @@ class UsersController extends Controller
 
             $user->save();
 
-            //Flash::success("Se ha ".$user->status." el usuario ". $user->name." de forma exitosa.");
+            Flash::success("Se ha ".$user->status." el usuario ". $user->name." de forma exitosa.");
 
         }else{
             $user->status = "Habilitado";
 
             $user->save();
 
-            //Flash::success("Se ha ".$user->status." el usuario ". $user->name." de forma exitosa.");
+            Flash::success("Se ha ".$user->status." el usuario ". $user->name." de forma exitosa.");
         }
 
         return redirect()->route('usuarios.index');

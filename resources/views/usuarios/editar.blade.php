@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-sm-12">
 
-                <!-- include('flash::message') -->
+                @include('flash::message')
                          
                 @if (count($errors) > 0)
                     <div class="alert alert-danger">
@@ -22,7 +22,8 @@
 
                 <div class="col-sm-8 col-sm-offset-2">
 
-                    <form class="form-horizontal" role="form" method="PUT" action="{{ route('usuarios.update', $usuario->id) }}">
+                    {!! Form::open(['route' =>  ['usuarios.update', $usuario->id], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
+
                         {!! csrf_field() !!}
                         <fieldset>
                             <legend>
@@ -31,9 +32,12 @@
                             <p>
                                 Actualice los datos que desea
                             </p>
+
                             <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                 <span class="input-icon">
-                                    <input type="text" class="form-control" name="name" value="{{ $usuario->name }}" placeholder="Nombre Completo">
+
+                                    {!! Form::text('name', $usuario->name, ['class' => 'form-control', 'placeholder' => 'Nombre Completo' ,'required']) !!}
+
                                     <i class="fa fa-user"></i></span>
 
                                     @if ($errors->has('name'))
@@ -44,7 +48,8 @@
                             </div>
                             <div class="form-group form-actions {{ $errors->has('email') ? ' has-error' : '' }}">
                                 <span class="input-icon">
-                                    <input type="email" class="form-control" name="email" value="{{ $usuario->email }}" placeholder="Correo Electrónico" readonly>
+                            
+                                    {!! Form::text('email', $usuario->email, ['class' => 'form-control', 'placeholder' => 'Correo Electrónico' ,'readonly']) !!}
 
                                     <i class="fa fa-envelope"></i> </span>
 
@@ -56,19 +61,15 @@
                             </div>
 
                            <div class="form-group form-actions {{ $errors->has('tipo') ? ' has-error' : '' }}">
-                                
-                                    <select name="tipo" required style="width: 100%">
-                                        <option value="">Tipo de usuario</option>
-                                        <option @if($usuario->tipo == "Administrador Maestro") selected @endif value="Administrador Maestro">Administrador Maestro</option>
-                                        <option @if($usuario->tipo == "Administrador") selected @endif value="Administrador">Administrador</option>
-                                        <option @if($usuario->tipo == "Cajero") selected @endif value="Cajero">Cajero</option>
-                                    </select>
 
-                                     @if ($errors->has('tipo'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('tipo') }}</strong>
-                                        </span>
-                                    @endif
+                                {!! Form::select('tipo', ['Administrador Maestro' => 'Administrador Maestro', 'Administrador' => 'Administrador', 'Cajero' => 'Cajero'], $usuario->tipo, ['placeholder' => 'Tipo de usuario', 'class' => 'form-control', 'required']) !!}
+
+                                @if ($errors->has('tipo'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('tipo') }}</strong>
+                                    </span>
+                                @endif
+
                            </div>
                             
                         </fieldset>
@@ -81,7 +82,8 @@
                             
                             <div class="form-group form-actions {{ $errors->has('password') ? ' has-error' : '' }}">
                                 <span class="input-icon">
-                                    <input type="password" class="form-control" name="password" placeholder="Contraseña">
+
+                                    {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Contraseña']) !!}
 
                                     <i class="fa fa-lock"></i></span>
 
@@ -95,7 +97,8 @@
 
                             <div class="form-group form-actions {{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                                 <span class="input-icon">
-                                    <input type="password" class="form-control" name="password_confirmation" placeholder="Repetir Contraseña">
+
+                                    {!! Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Repetir Contraseña']) !!}
 
                                     <i class="fa fa-lock"></i></span>
 
@@ -114,7 +117,7 @@
                             </button>
                         </div>
 
-                    </form>
+                    {!! Form::close() !!}
 
                 </div>
 

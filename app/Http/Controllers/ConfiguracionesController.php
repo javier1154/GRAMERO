@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Configuracion;
 use App\Iva;
 
+use Laracasts\Flash\Flash;
+
 class ConfiguracionesController extends Controller
 {
     /**
@@ -21,8 +23,17 @@ class ConfiguracionesController extends Controller
 
         $ivas = Iva::all();
 
+        $hoy = date('Y-m-d');
+
+        $iva_actual = Iva::where('desde', '<=', $hoy)->where('hasta', '>=', $hoy)->first();
+
+        if(count($iva_actual) == 0){
+            $iva_actual = Iva::where('desde', '<=', $hoy)->where('hasta', '=', NULL)->first();
+        }
+
         return view('configuraciones.index')
                 ->with('configuracion', $configuracion)
+                ->with('iva_actual', $iva_actual)
                 ->with('ivas', $ivas)
                 ;
     }

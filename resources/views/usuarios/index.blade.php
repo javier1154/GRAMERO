@@ -8,9 +8,15 @@
         <div class="row">
             <div class="col-sm-12">
                 
-                <a href="{{ route('usuarios.create') }}" type="submit" class="btn btn-primary margin-bottom-5">
+                <a href="{{ route('usuarios.create') }}" type="submit" class="btn btn-primary margin-bottom-10">
                     <i class="fa fa-btn fa-sign-in"></i> Registrar
                 </a>
+
+                <button type="button" class="btn btn-primary btn-scroll btn-scroll-top ti-arrow-left margin-bottom-10" data-toggle="modal" data-target=".modal-right">
+                    <span>Opciones</span>
+                </button>
+
+                @include('flash::message')
 
                 <table class="table table-bordered table-hover table-full-width table-responsive" id="sample_1">
                     <thead>
@@ -46,9 +52,9 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if( $usuario->status == "Activo" )
+                                    @if( $usuario->status == "Habilitado" )
                                         <a href="{{ route('usuarios.status', $usuario->id) }}" onclick="return confirm('Seguro que desea Deshabilitar al usuario {{$usuario->name}}?')">
-                                            <i class="fa fa-thumbs-down fa-lg"></i>D
+                                            <i class="fa fa-thumbs-down fa-lg"></i>
                                         </a>
                                     @else
                                         <a href="{{ route('usuarios.status', $usuario->id) }}" onclick="return confirm('Seguro que desea Habilitar al usuario {{$usuario->name}}?')">
@@ -70,6 +76,33 @@
                         
                     </tbody>
                 </table>
+
+                <!-- Right Aside -->
+                <div class="modal fade modal-aside horizontal right modal-right"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">Opciones</h4>
+                            </div>
+                            <div class="modal-body">
+                                Modal Content
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary btn-o" data-dismiss="modal">
+                                    Close
+                                </button>
+                                <button type="button" class="btn btn-primary">
+                                    Save changes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Right Aside -->
+
    
             </div>
         </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Configuracion;
+use App\Metodos_pago;
 use App\Iva;
 
 use Laracasts\Flash\Flash;
@@ -22,6 +23,7 @@ class ConfiguracionesController extends Controller
         $configuracion = Configuracion::first();
 
         $ivas = Iva::all();
+        $metodos = Metodos_pago::all();
 
         $hoy = date('Y-m-d');
 
@@ -35,7 +37,7 @@ class ConfiguracionesController extends Controller
                 ->with('configuracion', $configuracion)
                 ->with('iva_actual', $iva_actual)
                 ->with('ivas', $ivas)
-                ;
+                ->with('metodos', $metodos);
     }
 
     /**

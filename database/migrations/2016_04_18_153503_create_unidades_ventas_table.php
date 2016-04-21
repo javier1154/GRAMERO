@@ -14,11 +14,14 @@ class CreateUnidadesVentasTable extends Migration
     {
         Schema::create('unidades_ventas', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_unidad_compra');
+            $table->integer('id_unidad_compra')->unsigned();;
             $table->string('nombre', 100)->unique();
             $table->string('nomenclatura', 20)->unique();
             $table->integer('equivalencia')->null();
             $table->timestamps();
+
+            $table->foreign('id_unidad_compra')->references('id')->on('unidades_compras')->onDelete('cascade');
+            
         });
     }
 

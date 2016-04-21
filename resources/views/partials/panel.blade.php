@@ -26,7 +26,7 @@
 				</li>
 				
 				<li>
-					<a href="#">
+					<a href="{!! route('inventarios.index') !!}">
 						<div class="item-content">
 							<div class="item-media">
 								<i class="ti-location-pin"></i>

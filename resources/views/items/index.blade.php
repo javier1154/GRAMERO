@@ -37,8 +37,8 @@
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->nombre }}</td>
-                                    <td>{{ $item->id_categoria }}</td>
-                                    <td>{{ $item->id_unidad_compra }}</td>
+                                    <td>{{ $item->categoria->nombre }}</td>
+                                    <td>{{ $item->unidad_compra->nombre }}</td>
                                     <td>{{ $item->alertar }}</td>
                                     <td>
                                         @if ($item->status == "Habilitado")
@@ -96,10 +96,6 @@
                                 <h4 class="modal-title" id="myModalLabel">Opciones</h4>
                             </div>
                             <div class="modal-body">
-                                <a href="#">Cargar compra de ingredientes</a><br>
-
-                                <a href="#">Declarar pérdida de inventario</a><br>
-
                                 <a href="{{ route('categorias.index') }}" target="_blank">Configurar categorías</a><br>
 
                                 <a href="{!! route('unidades.index') !!}" target="_blank">Unidades de medidas</a>

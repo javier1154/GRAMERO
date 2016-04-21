@@ -62,6 +62,14 @@ class DatabaseSeeder extends Seeder
             'updated_at' => new DateTime
         ]);
 
+        DB::table('ivas')->insert([
+            'iva' => '12',
+            'desde' => '2015-12-12',
+            
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
         DB::table('categorias')->insert([
             'nombre' => 'Carnes',
             'tipo' => 'Items',
@@ -177,6 +185,42 @@ class DatabaseSeeder extends Seeder
             'telefono' => '04128418606',
             'email' => 'proveedordiaz@gmail.com',
             'id_usuario' => '1',
+            
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
+        DB::table('metodos_pagos')->insert([
+
+            'nombre' => 'Efectivo',
+            'tipo' => 'Clientes',
+            
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
+        DB::table('metodos_pagos')->insert([
+
+            'nombre' => 'Débito',
+            'tipo' => 'Clientes',
+            
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
+        DB::table('metodos_pagos')->insert([
+
+            'nombre' => 'Crédito',
+            'tipo' => 'Proveedores',
+            
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+        ]);
+
+        DB::table('metodos_pagos')->insert([
+
+            'nombre' => 'Efectivo',
+            'tipo' => 'Proveedores',
             
             'created_at' => new DateTime,
             'updated_at' => new DateTime

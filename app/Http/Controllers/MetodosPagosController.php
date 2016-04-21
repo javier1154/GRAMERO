@@ -8,9 +8,9 @@ use App\Http\Requests;
 
 use Laracasts\Flash\Flash;
 
-use App\Categoria;
+use App\Metodos_pago;
 
-class CategoriasController extends Controller
+class MetodosPagosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,13 +19,7 @@ class CategoriasController extends Controller
      */
     public function index()
     {
-
-        $cat_items = Categoria::where('tipo', '=', 'Items')->get();
-        $cat_productos = Categoria::where('tipo', '=', 'Productos')->get();
-
-        return view('categorias.index')
-                ->with('cat_items', $cat_items)
-                ->with('cat_productos', $cat_productos);
+        //
     }
 
     /**
@@ -35,7 +29,7 @@ class CategoriasController extends Controller
      */
     public function create()
     {
-        return view('categorias.registrar');
+        return view('metodosPagos.registrar');
     }
 
     /**
@@ -46,20 +40,19 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
-        $existe = Categoria::where('nombre', '=', $request->nombre)->where('tipo', '=', $request->tipo)->first();
+        $existe = Metodos_pago::where('nombre', '=', $request->nombre)->where('tipo', '=', $request->tipo)->first();
 
         if( count($existe) == 0 ){
-            $categoria = new Categoria($request->all());
-            $categoria->save();
+            $metodo_pago = new Metodos_pago($request->all());
+            $metodo_pago->save();
 
-            Flash::success("Se ha registrado la categoría ". $request->nombre." de forma exitosa.");
+            Flash::success("Se ha registrado el método de pago ". $request->nombre." para ".$request->tipo." de forma exitosa.");
 
-            return redirect()->route('categorias.index');
+            return redirect()->route('configuraciones.index');
         }else{
-            Flash::error("La categoría ".$request->nombre." ya existe.");
+            Flash::error("El método de pago ".$request->nombre." para ".$request->tipo." ya existe.");
             return back()->withInput();
-        }
-    }
+        }    }
 
     /**
      * Display the specified resource.
@@ -104,35 +97,35 @@ class CategoriasController extends Controller
     public function destroy($id)
     {
         //VALIDAR QUE NO ESTE INCLUIDA EN NINGUNA OTRA TABLA CON LA CUAL SE RELACIONES
-        $categoria = Categoria::find($id);
+        $metodo = Metodos_pago::find($id);
 
-        $categoria->delete();
+        $metodo->delete();
 
-        Flash::success("Se ha eliminado la categoría ". $categoria->nombre." de forma exitosa.");
+        Flash::success("Se ha eliminado el método ". $metodo->nombre." para ".$metodo->tipo." de forma exitosa.");
 
-        return redirect()->route('categorias.index');
+        return redirect()->route('configuraciones.index');
     }
 
     public function status($id){
 
-        $categoria = Categoria::find($id);
+        $metodo = Metodos_pago::find($id);
 
-        if( $categoria->status == "Habilitado" ){
-            $categoria->status = "Deshabilitado";
+        if( $metodo->status == "Habilitado" ){
+            $metodo->status = "Deshabilitado";
 
-            $categoria->save();
+            $metodo->save();
 
-            Flash::success("Se ha ".$categoria->status." la categoría ". $categoria->nombre." de forma exitosa.");
+            Flash::success("Se ha ".$metodo->status." el método ". $metodo->nombre." de forma exitosa.");
 
         }else{
-            $categoria->status = "Habilitado";
+            $metodo->status = "Habilitado";
 
-            $categoria->save();
+            $metodo->save();
 
-            Flash::success("Se ha ".$categoria->status." la categoría ". $categoria->nombre." de forma exitosa.");
+            Flash::success("Se ha ".$metodo->status." el método ". $metodo->nombre." de forma exitosa.");
         }
 
-        return redirect()->route('categorias.index');
+        return redirect()->route('configuraciones.index');
 
 
     }

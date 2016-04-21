@@ -46,7 +46,7 @@
                                             <span class="label label-danger">{{$proveedor->status}}</span>
                                         @endif
                                     </td>
-                                    <td>{{$proveedor->id_usuario}}</td>
+                                    <td>{{$proveedor->usuario->name}}</td>
                                     <td>
                                         @if( $proveedor->status == "Habilitado" )
                                             <a href="{{ route('proveedores.status', $proveedor->id) }}" onclick="return confirm('Seguro que desea Deshabilitar al proveedor {{$proveedor->nombre}}?')">

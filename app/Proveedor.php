@@ -12,4 +12,8 @@ class Proveedor extends Model
     protected $fillable = [
         'rif', 'nombre', 'direccion', 'telefono', 'email', 'status', 'id_usuario'
     ];
+
+    public function usuario(){
+        return $this->belongsTo('App\User', 'id_usuario');
+    }
 }

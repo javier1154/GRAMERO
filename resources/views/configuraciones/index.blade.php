@@ -102,5 +102,143 @@
 
 
         </div>
+
+
+        
+        <div class="row">
+            <br><br>
+            <center>
+                <a href="{{ route('metodosPagos.create') }}" type="submit" class="btn btn-primary margin-bottom-10">
+                    <i class="fa fa-btn fa-sign-in"></i> Registrar método de pago
+                </a>
+            </center>
+
+            <div class="col-sm-6">
+                
+                @if (count($metodos->where('tipo','Clientes')) > 0)
+                     <div class="panel panel-primary"  style="border: 1px solid #007AFF;">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Métodos de pagos para clientes</h4>
+                        </div>
+                        <div class="panel-body bg-white text-dark">
+                            <table class="table table-bordered table-hover table-full-width table-responsive" style="margin: 0px;">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Status</th>
+                                        <th>Opción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($metodos->where('tipo','Clientes') as $metodo)
+                                        <tr>
+                                            <td>{{$metodo->nombre}}</td>
+                                            <td>
+                                                @if ($metodo->status == "Habilitado")
+                                                    <span class="label label-default">{{$metodo->status}}</span>
+                                                @else
+                                                    <span class="label label-danger">{{$metodo->status}}</span>
+                                                @endif
+                                            </td>
+                                            <td>
+
+                                                @if( $metodo->status == "Habilitado" )
+                                                    <a href="{{ route('metodosPagos.status', $metodo->id) }}" onclick="return confirm('Seguro que desea Deshabilitar el método {{$metodo->nombre}}?')">
+                                                        <i class="fa fa-thumbs-down fa-lg"></i>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('metodosPagos.status', $metodo->id) }}" onclick="return confirm('Seguro que desea Habilitar el método {{$metodo->nombre}}?')">
+                                                        <i class="fa fa-thumbs-up fa-lg"></i>
+                                                    </a>
+                                                @endif
+
+                                                <a href="{{ route('metodosPagos.destroy', $metodo->id) }}" onclick="return confirm('Seguro que desea Eliminar el método {{$metodo->nombre}}?')">
+                                                    <i class="fa fa-trash fa-lg"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                @else
+                    <div class="alert alert-block alert-info fade in margin-bottom-0">
+                        <h4 class="alert-heading margin-bottom-10"><i class="ti-info"></i> Información!</h4>
+                        <p class="margin-bottom-10">
+                            No se han registrado métodos de pagos para proveedores.
+                        </p>
+                    </div>
+                @endif
+
+            </div>
+
+            <div class="col-sm-6">
+                
+                @if (count($metodos->where('tipo','Proveedores')) > 0)
+                     <div class="panel panel-primary"  style="border: 1px solid #007AFF;">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Métodos de pagos para proveedores</h4>
+                        </div>
+                        <div class="panel-body bg-white text-dark">
+                            <table class="table table-bordered table-hover table-full-width table-responsive" style="margin: 0px;">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Status</th>
+                                        <th>Opción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($metodos->where('tipo','Proveedores') as $metodo)
+                                        <tr>
+                                            <td>{{$metodo->nombre}}</td>
+                                            <td>
+                                                @if ($metodo->status == "Habilitado")
+                                                    <span class="label label-default">{{$metodo->status}}</span>
+                                                @else
+                                                    <span class="label label-danger">{{$metodo->status}}</span>
+                                                @endif
+                                            </td>
+                                            <td>
+
+                                                @if( $metodo->status == "Habilitado" )
+                                                    <a href="{{ route('metodosPagos.status', $metodo->id) }}" onclick="return confirm('Seguro que desea Deshabilitar el método {{$metodo->nombre}}?')">
+                                                        <i class="fa fa-thumbs-down fa-lg"></i>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('metodosPagos.status', $metodo->id) }}" onclick="return confirm('Seguro que desea Habilitar el método {{$metodo->nombre}}?')">
+                                                        <i class="fa fa-thumbs-up fa-lg"></i>
+                                                    </a>
+                                                @endif
+
+                                                <a href="{{ route('metodosPagos.destroy', $metodo->id) }}" onclick="return confirm('Seguro que desea Eliminar el método {{$metodo->nombre}}?')">
+                                                    <i class="fa fa-trash fa-lg"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                @else
+                    <div class="alert alert-block alert-info fade in margin-bottom-0">
+                        <h4 class="alert-heading margin-bottom-10"><i class="ti-info"></i> Información!</h4>
+                        <p class="margin-bottom-10">
+                            No se han registrado métodos de pagos para proveedores.
+                        </p>
+                    </div>
+                @endif
+
+               
+            </div>
+
+
+        </div>
+
+
     </div>
 @endsection

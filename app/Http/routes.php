@@ -58,6 +58,11 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         'as'   => 'categorias.destroy'
         ]);
 
+    Route::get('/categorias/{id}/status',[
+        'uses' => 'CategoriasController@status',
+        'as'   => 'categorias.status'
+        ]);
+
     //UNIDADES COMPRAS
     Route::resource('/unidades','UnidadesComprasController');
     Route::get('/unidades/{id}/destroy',[
@@ -83,6 +88,21 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         'uses' => 'ProveedoresController@destroy',
         'as'   => 'proveedores.destroy'
         ]);
+
+    //METODOS DE PAGOS
+    Route::resource('/metodosPagos','MetodosPagosController');
+    Route::get('/metodosPagos/{id}/status',[
+        'uses' => 'MetodosPagosController@status',
+        'as'   => 'metodosPagos.status'
+        ]);
+
+    Route::get('/metodosPagos/{id}/destroy',[
+        'uses' => 'MetodosPagosController@destroy',
+        'as'   => 'metodosPagos.destroy'
+        ]);
+
+    //INVENTARIO
+    Route::resource('/inventarios','InventariosController');
 
 
 

@@ -98,7 +98,7 @@
                                             <tr>
                                                 <td>{{$unidad->nombre}}</td>
                                                 <td>{{$unidad->nomenclatura}}</td>
-                                                <td>{{$unidad->id_unidad_compra}}</td>
+                                                <td>{{$unidad->unidad_compra->nombre}}</td>
                                                 <td>{{$unidad->equivalencia or "-----------"}}</td>
                                                 <td>
                                                     <a href="{{ route('unidadesVentas.destroy', $unidad->id) }}" onclick="return confirm('Seguro que desea Eliminar la unidad de venta {{$unidad->nombre}}?')">

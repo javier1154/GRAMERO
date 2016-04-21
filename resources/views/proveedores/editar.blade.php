@@ -103,7 +103,7 @@
 
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary pull-right">
-                                    Registrar <i class="fa fa-arrow-circle-right"></i>
+                                    Editar <i class="fa fa-arrow-circle-right"></i>
                                 </button>
                             </div>
                             

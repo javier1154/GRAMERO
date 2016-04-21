@@ -46,6 +46,17 @@
                                                     @endif
                                                 </td>
                                                 <td>
+                                                    
+                                                    @if( $categoria->status == "Habilitado" )
+                                                        <a href="{{ route('categorias.status', $categoria->id) }}" onclick="return confirm('Seguro que desea Deshabilitar la categoría {{$categoria->nombre}}?')">
+                                                            <i class="fa fa-thumbs-down fa-lg"></i>
+                                                        </a>
+                                                    @else
+                                                        <a href="{{ route('categorias.status', $categoria->id) }}" onclick="return confirm('Seguro que desea Habilitar la categoría {{$categoria->nombre}}?')">
+                                                            <i class="fa fa-thumbs-up fa-lg"></i>
+                                                        </a>
+                                                    @endif
+
                                                     <a href="{{ route('categorias.destroy', $categoria->id) }}" onclick="return confirm('Seguro que desea Eliminar la categoría {{$categoria->nombre}}?')">
                                                         <i class="fa fa-trash fa-lg"></i>
                                                     </a>
@@ -103,6 +114,17 @@
                                                     @endif
                                                 </td>
                                                 <td>
+
+                                                    @if( $categoria->status == "Habilitado" )
+                                                        <a href="{{ route('categorias.status', $categoria->id) }}" onclick="return confirm('Seguro que desea Deshabilitar la categoría {{$categoria->nombre}}?')">
+                                                            <i class="fa fa-thumbs-down fa-lg"></i>
+                                                        </a>
+                                                    @else
+                                                        <a href="{{ route('categorias.status', $categoria->id) }}" onclick="return confirm('Seguro que desea Habilitar la categoría {{$categoria->nombre}}?')">
+                                                            <i class="fa fa-thumbs-up fa-lg"></i>
+                                                        </a>
+                                                    @endif
+
                                                     <a href="{{ route('categorias.destroy', $categoria->id) }}" onclick="return confirm('Seguro que desea Eliminar la categoría {{$categoria->nombre}}?')">
                                                         <i class="fa fa-trash fa-lg"></i>
                                                     </a>

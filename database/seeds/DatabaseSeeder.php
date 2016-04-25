@@ -137,6 +137,7 @@ class DatabaseSeeder extends Seeder
             'id_unidad_compra' => '2',
             'nombre' => 'Unidad',
             'nomenclatura' => 'u.',
+            'equivalencia' => '1',
             
             'created_at' => new DateTime,
             'updated_at' => new DateTime

@@ -17,4 +17,8 @@ class Item extends Model
     public function unidad_compra(){
         return $this->belongsTo('App\Unidades_compra', 'id_unidad_compra');
     }
+
+    public function inventarios(){
+        return $this->hasMany('App\Inventario', 'id_item');
+    }
 }

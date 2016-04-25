@@ -19,16 +19,27 @@
                     <table class="table table-bordered table-hover table-full-width table-responsive">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Item</th>
-                                <th>Categoría</th>
-                                <th>U. Compra</th>
-                                <th>Alerta</th>
+                                <th>Cant. Disponible</th>
                                 <th>Status</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($inventarios as $inventario)
+                                <tr>
+                                    <td>{{$inventario->item->nombre}}</td>
+                                    <td>{{$inventario->item->inventarios->sum('cantidad_venta')." ".$inventario->item->unidad_compra->unidad_venta->nomenclatura}}</td>
+                                    <td></td>
+                                    <td>
+                                        
+                                        <a href="{{ route('items.show', $inventario->id_item) }}" target="_blank">
+                                            <i class="fa fa-cog fa-lg"></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            @endforeach
                             
 
                         </tbody>
@@ -55,7 +66,7 @@
                                 <h4 class="modal-title" id="myModalLabel">Opciones</h4>
                             </div>
                             <div class="modal-body">
-                                <a href="#">Cargar compra de ingredientes</a><br>
+                                <a href="{{ route('inventarios.create') }}" target="_blank">Cargar compra de ingredientes</a><br>
 
                                 <a href="#">Declarar pérdida de inventario</a><br>
                             </div>

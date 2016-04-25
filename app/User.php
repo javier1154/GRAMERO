@@ -27,4 +27,8 @@ class User extends Authenticatable
     public function proveedores(){
         return $this->hasMany('App\Proveedor', 'id_usuario');
     }
+
+    public function facturas_compras(){
+        return $this->hasMany('App\Facturas_compra', 'id_usuario');
+    }
 }

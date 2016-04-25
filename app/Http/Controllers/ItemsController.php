@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Item;
 use App\Unidades_compra;
 use App\Categoria;
+use App\inventario;
 
 use Laracasts\Flash\Flash;
 
@@ -75,7 +76,9 @@ class ItemsController extends Controller
      */
     public function show($id)
     {
-       //
+       $item = Item::find($id);
+       return view('items.ver')->with('item', $item);
+
     }
 
     /**

@@ -16,4 +16,8 @@ class Proveedor extends Model
     public function usuario(){
         return $this->belongsTo('App\User', 'id_usuario');
     }
+
+    public function inventarios(){
+        return $this->hasMany('App\Facturas_compra', 'id_proveedor');
+    }
 }

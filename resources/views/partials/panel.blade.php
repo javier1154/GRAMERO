@@ -157,7 +157,7 @@
 
 			<a class="navbar-brand" href="#">
 				<!--<img src="assets/images/logo.png" alt="Clip-Two"/>-->
-				GRAMERO
+				{{$conf->empresa}}
 			</a>
 
 			<a href="#" class="sidebar-toggler pull-right visible-md visible-lg" data-toggle-class="app-sidebar-closed" data-toggle-target="#app">

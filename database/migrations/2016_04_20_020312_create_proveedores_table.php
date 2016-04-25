@@ -20,7 +20,7 @@ class CreateProveedoresTable extends Migration
             $table->string('telefono', 12);
             $table->string('email', 100);   
             $table->enum('status', ['Habilitado', 'Deshabilitado'])->default('Habilitado');
-            $table->integer('id_usuario')->unsigned();; //quien registra al proveedor
+            $table->integer('id_usuario')->unsigned(); //quien registra al proveedor
             $table->timestamps();
 
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');

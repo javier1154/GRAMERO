@@ -64,7 +64,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="#!">
+					<a href="{!! route('compras.index') !!}">
 						<div class="item-content">
 							<div class="item-media">
 								<i class="ti-location-pin"></i>

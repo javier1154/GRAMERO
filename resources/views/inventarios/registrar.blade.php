@@ -7,6 +7,56 @@
 <style type="text/css">
     .fila-base{ display: none; }
 </style>
+
+<script>
+    
+
+    function procesar(){
+
+        var subtotal = 0;
+        $('#tabla tr.dato').each(function(){ //filas con clase 'dato', especifica una clase, asi no tomas el nombre de las columnas
+            subtotal += parseInt($(this).find('.costo').val()||0,10) //numero de la celda 3
+        })
+
+        $('#subtotal').text(subtotal.toFixed(2));
+
+        var iva = {{$iva->iva}};
+        var subiva = (subtotal * iva / 100).toFixed(2);
+
+        $('#subiva').text(subiva);
+
+        var total = (parseFloat(subtotal) + parseFloat(subiva)).toFixed(2);
+        $('#total').text(total);
+
+
+    }
+
+    function nomenclatura(nom){
+
+        var unidad = nom.dataset.unidad;
+        //$(this).find('.icantidad').text(unidad);
+        //var row = $(this).parents('tr');
+        //var can = $('.icantidad');
+        //$('.icantidad').text('hola');
+
+        ///////////////////////////////////////////////////// 
+        //var row = $(this).parents('tr');
+
+
+        //alert(row);
+                //var unidad = $(this).find(':selected').attr('data-unidad');
+                //$('#tabla tbody tr .icantidad').text(unidad);
+
+        //row.find("td").eq(1).find('.icantidad').text(unidad);
+        //row.find('span.icantidad').text(unidad);
+          
+        //row.find("td:eq(1) span.icantidad").text(unidad);
+                ////////////////////////////////////////////////////
+    }
+
+            
+</script>
+
 @endsection
 
 @section('contenido')
@@ -106,9 +156,9 @@
                                     </thead>
                                     <tbody>
 
-                                        <tr class="fila-base">
+                                        <tr class="fila-base dato">
                                             <td>
-                                                <select name="id_item[]" class="form-control id_item">
+                                                <select name="id_item[]" class="form-control id_item" onchange="nomenclatura(this.options[this.selectedIndex])">
                                                     <option value="">-- Item --</option>
                                                     @foreach ($items as $item)
                                                         <option value="{{ $item->id }}" data-unidad="{{ $item->unidad_compra->nomenclatura }}">{{ $item->nombre }}</option>
@@ -118,12 +168,12 @@
                                             <td>
                                                 <div class="input-group">
                                                     <input type="text" name="cantidad[]" class="form-control">
-                                                    <span class="input-group-addon icantidad"></span>
+                                                    <span class="input-group-addon icantidad">a</span>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input type="text" name="costo[]" class="form-control costo">
+                                                    <input type="text" name="costo[]" class="form-control costo" onkeyup="procesar()">
                                                     <span class="input-group-addon">{{$conf->moneda}}</span>
                                                 </div>
                                             </td>
@@ -138,9 +188,9 @@
                                             </td>
                                         </tr>
 
-                                        <tr>
+                                        <tr class="dato">
                                             <td>
-                                                <select name="id_item[]" class="form-control id_item" required>
+                                                <select name="id_item[]" class="form-control id_item" required onchange="nomenclatura(this.options[this.selectedIndex])">
                                                     <option value="">-- Item --</option>
                                                     @foreach ($items as $item)
                                                         <option value="{{ $item->id }}" data-unidad="{{ $item->unidad_compra->nomenclatura }}">{{ $item->nombre }}</option>
@@ -150,12 +200,12 @@
                                             <td>
                                                 <div class="input-group">
                                                     <input type="text" name="cantidad[]" class="form-control" required>
-                                                    <span class="input-group-addon icantidad"></span>
+                                                    <span class="input-group-addon icantidad">a</span>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input type="text" name="costo[]" class="form-control costo" required>
+                                                    <input type="text" name="costo[]" class="form-control costo"  onkeyup="procesar()" required>
                                                     <span class="input-group-addon">{{$conf->moneda}}</span>
                                                 </div>
                                             </td>
@@ -171,6 +221,20 @@
                                         </tr>
 
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="2" style="text-align: right;">SubTotal</th>
+                                            <th colspan="3"><span id="subtotal">0</span> {{$conf->moneda}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2" style="text-align: right;">IVA ({{$iva->iva}}%)</th>
+                                            <th colspan="3"><span id="subiva">0</span> {{$conf->moneda}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2" style="text-align: right;">Total</th>
+                                            <th colspan="3"><span id="total">0</span> {{$conf->moneda}}</th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
 
                                 <button id="agregar" class="btn btn-primary" style="font-weight: bold; font-size: 20px;" />
@@ -211,7 +275,6 @@
 
         $(document).ready(function(){
 
-            
             /*
             $('#id_item').change(function(){
                 //alert("hola");
@@ -290,6 +353,8 @@
                 if(confirm('¿Seguro que desea eliminar esta fila?')){
                     var parent = $(this).parents().get(0);
                     $(parent).remove();
+
+                    procesar();
                 }
                 
             });

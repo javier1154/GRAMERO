@@ -104,6 +104,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     //INVENTARIO
     Route::resource('/inventarios','InventariosController');
 
+    //COMPRAS
+    Route::resource('/compras','FacturasComprasController');
+
 
 
 });

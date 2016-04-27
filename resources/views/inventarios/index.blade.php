@@ -30,7 +30,15 @@
                                 <tr>
                                     <td>{{$inventario->item->nombre}}</td>
                                     <td>{{$inventario->item->inventarios->sum('cantidad_venta')." ".$inventario->item->unidad_compra->unidad_venta->nomenclatura}}</td>
-                                    <td></td>
+                                    <td>
+                                        @if($inventario->item->inventarios->sum('cantidad_venta') >= ($inventario->item->alertar * $inventario->item->unidad_compra->unidad_venta->equivalencia))
+                                            <label class="label label-success">Disponible</label>
+                                        @elseif($inventario->item->inventarios->sum('cantidad_venta') < ($inventario->item->alertar * $inventario->item->unidad_compra->unidad_venta->equivalencia))
+                                            <label class="label label-warning">Limitado</label>
+                                        @elseif($inventario->item->inventarios->sum('cantidad_venta') <= 0)
+                                            <label class="label label-danger">Agotado</label>
+                                        @endif
+                                    </td>
                                     <td>
                                         
                                         <a href="{{ route('items.show', $inventario->id_item) }}" target="_blank">

@@ -1,24 +1,30 @@
-@extends('partials.panel')
+@extends ('layouts.default')
 
-@section('titulo', 'Proveedores')
+@section ('title')
+  Proveedores
+@stop
+@section ('cssPage')
+@stop
+@section('pagina')
+  <h2>Proveedores</h2>
+@stop
+@section ('contenido')
 
-@section('contenido')
-
-    <div class="container-fluid container-fullw bg-white">
-        <div class="row">
-            <div class="col-sm-12">
-                
-                <a href="{{ route('proveedores.create') }}" type="submit" class="btn btn-primary margin-bottom-10">
+    <fieldset>
+     <a href="{{ route('proveedores.create') }}" type="submit" class="btn btn-primary margin-bottom-10">
                     <i class="fa fa-btn fa-sign-in"></i> Registrar
                 </a>
-
-                @include('flash::message')
+    </fieldset>
+                
+                 @include('flash::message')
                 
                 @if(count($proveedores) > 0)
-
-                    <table class="table table-bordered table-hover table-full-width table-responsive" id="sample_1">
-                        <thead>
-                            <tr>
+ 
+ <div class="row">
+     <div class="col-md-12">
+        <table class="table-dark table table-striped table-bordered table-hover margin-0px" id="sample_1">
+          <thead>
+            <tr>
                                 <th>ID</th>
                                 <th>RIF/CI</th>
                                 <th>Nombre</th>
@@ -69,9 +75,9 @@
                                     </td>
                                 </tr>
                             @endforeach
-                            
-                        </tbody>
-                    </table>
+                 
+              </tbody>
+        </table>
 
                 @else
             
@@ -84,7 +90,15 @@
 
                 @endif
 
-            </div>
-        </div>
+      </div>
     </div>
-@endsection
+
+
+    
+@stop
+
+
+@section('js')
+<script>
+</script>
+@stop

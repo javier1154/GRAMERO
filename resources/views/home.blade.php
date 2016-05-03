@@ -1,8 +1,14 @@
-@extends('partials.panel')
+@extends ('layouts.default')
 
-@section('titulo', 'Inicio')
-
-@section('contenido')
+@section ('title')
+  Agregar Empresa
+@stop
+@section ('cssPage')
+@stop
+@section('pagina')
+  <h2>Home</h2>
+@stop
+@section ('contenido')
 
     <div class="container-fluid container-fullw bg-white">
         <div class="row">
